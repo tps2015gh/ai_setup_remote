@@ -6,8 +6,8 @@ This project provides scripts to set up a remote CLI environment within a Local 
 
 ## Team Dev
 - **Human (Director):** The visionary behind the project, defining requirements and leading the development process.
-- **Gemini CLI (Agent):** The technical expert responsible for implementation, script creation, system configuration, and remote environment optimization.
-- **Security & Compliance Agent:** Responsible for auditing code for bugs, legal compliance (licensing/privacy), security best practices, and ensuring a seamless program flow (UX).
+- **Gemini CLI (Agent):** The technical implementation expert responsible for script creation, system configuration, and optimizing the remote environment for AI interactions.
+- **Security & Compliance Agent:** Specialized agent assigned to audit the project for **Security**, **Program Flow (UX)**, **Legal Compliance (Law)**, and **Technical Reliability (Bugs)**.
 
 ## Master Menus
 For easier setup, use the master menu scripts located in the root directory:
@@ -28,26 +28,24 @@ For easier setup, use the master menu scripts located in the root directory:
 - Take note of the IP address shown at the end of the script.
 
 ### 2. Mobile (Android / Termux)
-- Open Termux on your Android device.
-- Clone this repository or fetch the `setup_mobile.sh` script.
-- Run `chmod +x setup_mobile.sh` then `./setup_mobile.sh`.
-- This script will install `openssh` and `tmux`, then provide a menu to connect to your notebook.
+- **Option A:** Use the [Quick Start](QUICKSTART.md) one-liner (Recommended).
+- **Option B:** Clone this repository, run `chmod +x setup_mobile.sh` then `./setup_mobile.sh`.
 
 ## Role & Tasks (Gemini CLI)
 My role is to ensure that the remote connection is seamless and the environment is ready for AI interaction.
-**Tasks:**
-- Automate OpenSSH installation on Windows.
-- Implement state-aware rollback mechanisms.
-- Provide network diagnostics to facilitate easy connection.
+**Core Responsibilities:**
+- Automate OpenSSH installation and configuration on Windows.
+- Implement state-aware rollback mechanisms for safe uninstallation.
+- Provide network diagnostics to facilitate effortless connection.
 - Prepare the mobile environment with necessary packages (SSH, tmux).
-- Document the workflow and ensure clarity for the user.
+- Maintain clear and concise documentation for both platforms.
 
 ## Role & Tasks (Security & Compliance Agent)
-**Tasks:**
-- **Security:** Audit OpenSSH configurations and firewall rules for potential vulnerabilities.
-- **UX/Flow:** Review setup scripts for user-friendly prompts, error handling, and logical progression.
-- **Law:** Ensure licensing (MIT) is correctly applied and privacy is maintained in all scripts.
-- **Bugs:** Perform technical verification of cross-platform scripts (PowerShell & Bash).
+**Specific Audit Tasks:**
+- **Security:** Rigorously audit OpenSSH configurations and firewall rules for potential vulnerabilities and LAN isolation.
+- **UX & Program Flow:** Review all setup scripts for intuitive user prompts, robust error handling, and logical progression.
+- **Legal Compliance (Law):** Ensure the MIT License is correctly applied and that all scripts respect user privacy and data sovereignty.
+- **Technical Integrity (Bugs):** Perform continuous technical verification of cross-platform scripts (PowerShell & Bash) to ensure reliability.
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
