@@ -4,8 +4,8 @@ This project provides scripts to set up a remote CLI environment within a Local 
 
 ## Team Dev
 - **Human (Director):** The visionary behind the project, defining requirements and leading the development process.
-- **Gemini CLI (Agent):** The technical expert responsible for implementation, script creation, and system configuration.
-- **Security & Compliance Agent:** Responsible for auditing code for bugs, legal compliance (licensing/privacy), and security best practices.
+- **Gemini CLI (Agent):** The technical expert responsible for implementation, script creation, system configuration, and remote environment optimization.
+- **Security & Compliance Agent:** Responsible for auditing code for bugs, legal compliance (licensing/privacy), security best practices, and ensuring a seamless program flow (UX).
 
 ## Project Structure
 - `windows_tmux/notebook/`: Contains the setup script for the Windows 11 host.
@@ -29,9 +29,17 @@ This project provides scripts to set up a remote CLI environment within a Local 
 My role is to ensure that the remote connection is seamless and the environment is ready for AI interaction.
 **Tasks:**
 - Automate OpenSSH installation on Windows.
+- Implement state-aware rollback mechanisms.
 - Provide network diagnostics to facilitate easy connection.
 - Prepare the mobile environment with necessary packages (SSH, tmux).
-- Document the workflow for future reference.
+- Document the workflow and ensure clarity for the user.
+
+## Role & Tasks (Security & Compliance Agent)
+**Tasks:**
+- **Security:** Audit OpenSSH configurations and firewall rules for potential vulnerabilities.
+- **UX/Flow:** Review setup scripts for user-friendly prompts, error handling, and logical progression.
+- **Law:** Ensure licensing (MIT) is correctly applied and privacy is maintained in all scripts.
+- **Bugs:** Perform technical verification of cross-platform scripts (PowerShell & Bash).
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
