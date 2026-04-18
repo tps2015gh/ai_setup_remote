@@ -7,6 +7,12 @@ This project provides scripts to set up a remote CLI environment within a Local 
 - **Gemini CLI (Agent):** The technical expert responsible for implementation, script creation, system configuration, and remote environment optimization.
 - **Security & Compliance Agent:** Responsible for auditing code for bugs, legal compliance (licensing/privacy), security best practices, and ensuring a seamless program flow (UX).
 
+## Master Menus
+For easier setup, use the master menu scripts located in the root directory:
+
+- **Windows:** Run `.\menu.ps1` in PowerShell.
+- **Mobile/Linux:** Run `./menu.sh` in Bash (Termux).
+
 ## Project Structure
 - `windows_tmux/notebook/`: Contains the setup script for the Windows 11 host.
 - `windows_tmux/mobile/`: Contains the setup script for the Android (Termux) client.
