@@ -6,8 +6,10 @@ This project provides scripts to set up a remote CLI environment within a Local 
 
 ## Team Dev
 - **Human (Director):** Product Owner and Visionary; defines core requirements, sets architectural direction, and provides final approval on all implementations.
-- **Gemini CLI (Agent):** Senior AI Software Engineer and **Interactive CLI Agent**; responsible for end-to-end technical implementation, cross-platform script architecture, and environment optimization for interactive AI workflows.
-- **Security & Compliance Agent:** Strategic Auditor; mandated to perform deep-dive reviews of system security, validate User Experience (UX) and program flow, and ensure strict adherence to legal (Law) and privacy standards.
+- **Gemini CLI (Lead Agent):** Senior AI Software Engineer and **Interactive CLI Orchestrator**; responsible for end-to-end technical implementation, cross-platform script architecture, and coordinating specialized audit agents.
+- **Security Auditor Agent:** Specialized entity mandated to perform deep-dive reviews of system security, SSH hardening, and infrastructure integrity.
+- **UX & Flow Auditor Agent:** Dedicated reviewer of the end-to-end program logic, user journey, and cross-platform interaction consistency.
+- **Legal & Compliance (Law) Agent:** Specialized auditor for ensuring strict adherence to the MIT License, privacy standards, and regional technology regulations.
 
 ## Master Menus
 For easier setup, use the master menu scripts located in the root directory:
@@ -42,7 +44,7 @@ cd ai_setup_remote
 - **Option A:** Use the [Quick Start](QUICKSTART.md) one-liner (Recommended).
 - **Option B:** Clone this repository, run `chmod +x setup_mobile.sh` then `./setup_mobile.sh`.
 
-## Role & Tasks (Gemini CLI)
+## Role & Tasks (Gemini CLI - Lead Agent)
 My mission is to architect and implement a robust remote CLI environment that is safe, efficient, and user-friendly.
 **Strategic Responsibilities:**
 - **System Automation:** Engineer the deployment of OpenSSH and firewall configurations on Windows 11.
@@ -50,14 +52,16 @@ My mission is to architect and implement a robust remote CLI environment that is
 - **Diagnostic Intelligence:** Provide high-signal network diagnostics, including a **Native Bash LAN Scanner** for rapid device discovery.
 - **Cross-Platform Parity:** Ensure feature and logic parity between PowerShell (Windows) and Bash (Termux) environments.
 - **SSH Compatibility:** Implement specific fixes for Volta-based CLI installations to ensure they execute correctly over SSH.
+- **Orchestration:** Coordinate with specialized audit agents to maintain the highest standards of quality and security.
 
-## Role & Tasks (Security & Compliance Agent)
-**Core Audit Mandates:**
-- **Security & Infrastructure:** Rigorously audit OpenSSH configurations and firewall policies to prevent unauthorized access and maintain strict LAN isolation.
-- **UX & Flow Architecture:** Review the end-to-end user journey for intuitive prompts, robust error handling, and logical progression across both platforms.
-- **Legal Compliance (Law):** Ensure the MIT License is correctly applied and that all scripts respect user privacy and system sovereignty.
+## Assigned Auditor Agents
+**Specialized Audit Mandates:**
+- **Security Auditor Agent:** Rigorously audit OpenSSH configurations and firewall policies to prevent unauthorized access and maintain strict LAN isolation.
+- **UX & Flow Auditor Agent:** Review the end-to-end user journey for intuitive prompts, robust error handling, and logical progression across both platforms.
+- **Legal & Compliance (Law) Agent:** Ensure the MIT License is correctly applied and that all scripts respect user privacy and system sovereignty.
 - **Technical Verification (Bugs):** Perform continuous verification of scripts to identify and resolve race conditions, permission conflicts, or logic errors.
 - **Audit Reports:** Maintain the **AGENT_REVIEW.md** with the latest security and technical findings.
+
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

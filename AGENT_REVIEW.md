@@ -3,10 +3,10 @@
 This document provides an audit of the `LAN Remote CLI` project, focusing on **Law**, **Bugs**, and **Privacy**.
 
 ## Audit Assignments
-To ensure the highest standards of system integrity and user trust, the following roles are assigned:
-- **Security Auditor:** Responsible for scanning for vulnerabilities, credential leakage, and insecure service configurations (e.g., Firewall/SSH hardening).
-- **UX & Flow Auditor:** Responsible for reviewing program logic, user prompts, and cross-platform consistency to ensure a seamless experience.
-- **Legal & Compliance (Law) Auditor:** Responsible for intellectual property (MIT License), privacy policy adherence, and regional technology regulation compliance.
+To ensure the highest standards of system integrity and user trust, the following specialized agents are assigned:
+- **Security Auditor Agent:** Responsible for scanning for vulnerabilities, credential leakage, and insecure service configurations (e.g., Firewall/SSH hardening).
+- **UX & Flow Auditor Agent:** Responsible for reviewing program logic, user prompts, and cross-platform consistency to ensure a seamless experience.
+- **Legal & Compliance (Law) Agent:** Responsible for intellectual property (MIT License), privacy policy adherence, and regional technology regulation compliance.
 
 ## 1. Legal Review (Compliance)
 - **License:** The project correctly uses the **MIT License**, which is highly permissive and appropriate for this collaborative project between Human and AI.
@@ -36,7 +36,7 @@ To ensure the highest standards of system integrity and user trust, the followin
 4. **Security Hardening:** Consider adding a "Health Check" option to the menu to verify SSH status periodically.
 
 ---
-*Reviewed by: Security & Compliance Agent (Gemini CLI)*
-
----
-*Reviewed by: Security & Compliance Agent (Gemini CLI)*
+*Reviewed by: Security Auditor Agent*
+*Reviewed by: UX & Flow Auditor Agent*
+*Reviewed by: Legal & Compliance (Law) Agent*
+*Orchestrated by: Gemini CLI (Lead Agent)*
