@@ -11,7 +11,7 @@ show_system_info() {
 }
 
 setup_packages() {
-    echo -e "\e[32mChecking required packages (openssh, tmux)...\e[0m"
+    echo -e "\e[32mChecking required packages (openssh, tmux, nmap)...\e[0m"
     
     # Update package list
     pkg update -y
@@ -20,17 +20,37 @@ setup_packages() {
     if ! command -v ssh &> /dev/null; then
         echo -e "\e[33mInstalling OpenSSH...\e[0m"
         pkg install openssh -y
-    else
-        echo -e "\e[32mOpenSSH is already installed.\e[0m"
     fi
     
     # Install tmux
     if ! command -v tmux &> /dev/null; then
         echo -e "\e[33mInstalling tmux...\e[0m"
         pkg install tmux -y
-    else
-        echo -e "\e[32mtmux is already installed.\e[0m"
     fi
+
+    # Install nmap
+    if ! command -v nmap &> /dev/null; then
+        echo -e "\e[33mInstalling nmap...\e[0m"
+        pkg install nmap -y
+    fi
+}
+
+scan_lan() {
+    echo -e "\e[36mScanning local network for SSH servers...\e[0m"
+    # Get local IP and determine subnet
+    local_ip=$(ifconfig wlan0 | grep "inet " | awk '{print $2}')
+    if [ -z "$local_ip" ]; then
+        echo -e "\e[31mError: Could not determine local IP. Are you connected to Wi-Fi?\e[0m"
+        return
+    fi
+    
+    subnet=$(echo $local_ip | cut -d. -f1-3).0/24
+    echo "Your IP: $local_ip | Scanning Subnet: $subnet"
+    echo "Please wait (this may take a few seconds)..."
+    
+    # Scan for port 22 (SSH) and 8022 (Termux)
+    nmap -p 22,8022 --open $subnet | grep "Nmap scan report for"
+    echo -e "\e[32mScan complete.\e[0m"
 }
 
 show_menu() {
@@ -38,9 +58,10 @@ show_menu() {
         echo ""
         echo -e "\e[32mRemote CLI Setup Menu\e[0m"
         echo "1. Connect to Notebook (SSH)"
-        echo "2. Start tmux Session"
-        echo "3. Exit"
-        read -p "Choose an option [1-3]: " choice
+        echo "2. Scan LAN for Notebook"
+        echo "3. Start tmux Session"
+        echo "4. Exit"
+        read -p "Choose an option [1-4]: " choice
         
         case $choice in
             1)
@@ -50,10 +71,13 @@ show_menu() {
                 ssh "$win_user@$win_ip"
                 ;;
             2)
+                scan_lan
+                ;;
+            3)
                 echo "Starting tmux..."
                 tmux
                 ;;
-            3)
+            4)
                 exit 0
                 ;;
             *)
