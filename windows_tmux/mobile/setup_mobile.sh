@@ -11,7 +11,7 @@ show_system_info() {
 }
 
 setup_packages() {
-    echo -e "\e[32mChecking required packages (openssh, tmux, nmap)...\e[0m"
+    echo -e "\e[32mChecking required packages (openssh, tmux)...\e[0m"
     
     # Update package list
     pkg update -y
@@ -27,30 +27,37 @@ setup_packages() {
         echo -e "\e[33mInstalling tmux...\e[0m"
         pkg install tmux -y
     fi
-
-    # Install nmap
-    if ! command -v nmap &> /dev/null; then
-        echo -e "\e[33mInstalling nmap...\e[0m"
-        pkg install nmap -y
-    fi
 }
 
 scan_lan() {
-    echo -e "\e[36mScanning local network for SSH servers...\e[0m"
-    # Get local IP and determine subnet
+    echo -e "\e[36mScanning local network for SSH servers (Native Bash)...\e[0m"
+    # Get local IP and determine prefix
     local_ip=$(ifconfig wlan0 | grep "inet " | awk '{print $2}')
     if [ -z "$local_ip" ]; then
-        echo -e "\e[31mError: Could not determine local IP. Are you connected to Wi-Fi?\e[0m"
+        # Try secondary interface if wlan0 fails
+        local_ip=$(ip addr show | grep "inet " | grep -v "127.0.0.1" | awk '{print $2}' | cut -d/ -f1 | head -n1)
+    fi
+
+    if [ -z "$local_ip" ]; then
+        echo -e "\e[31mError: Could not determine local IP. Are you connected to a network?\e[0m"
         return
     fi
     
-    subnet=$(echo $local_ip | cut -d. -f1-3).0/24
-    echo "Your IP: $local_ip | Scanning Subnet: $subnet"
-    echo "Please wait (this may take a few seconds)..."
+    prefix=$(echo $local_ip | cut -d. -f1-3)
+    echo "Your IP: $local_ip | Scanning Range: $prefix.1 - $prefix.254"
+    echo "Please wait... (Native scan is running in background)"
     
-    # Scan for port 22 (SSH) and 8022 (Termux)
-    nmap -p 22,8022 --open $subnet | grep "Nmap scan report for"
-    echo -e "\e[32mScan complete.\e[0m"
+    # Loop through all IPs in the subnet
+    # Using background processes (&) for high speed
+    for i in {1..254}; do
+        (
+            # Check Port 22 (Standard) and 8022 (Termux)
+            timeout 0.2 bash -c "echo > /dev/tcp/$prefix.$i/22" 2>/dev/null && echo -e "\e[32m[FOUND] $prefix.$i:22 (Windows/Linux SSH)\e[0m"
+            timeout 0.2 bash -c "echo > /dev/tcp/$prefix.$i/8022" 2>/dev/null && echo -e "\e[32m[FOUND] $prefix.$i:8022 (Termux SSH)\e[0m"
+        ) &
+    done
+    wait
+    echo -e "\e[36mScan complete.\e[0m"
 }
 
 show_menu() {
