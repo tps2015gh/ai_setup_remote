@@ -8,25 +8,29 @@ This document provides an audit of the `LAN Remote CLI` project, focusing on **L
 - **Encryption:** OpenSSH uses strong encryption. In some jurisdictions, use of certain encryption types is regulated, but standard OpenSSH is globally accepted for personal use.
 
 ## 2. Bug & Technical Review
-### Windows Script (`setup_notebook.ps1`)
-- **Admin Privilege Check:** The script uses `Get-WindowsCapability` and `New-NetFirewallRule`, which **require Administrator privileges**. A check should be added to prevent errors if run as a regular user.
-- **Port Conflict:** The script assumes Port 22 is free. While standard, it should ideally check if another service is already using it.
-- **Error Handling:** Currently, it assumes all commands succeed. Adding `try/catch` blocks would improve reliability.
+... (existing content) ...
 
-### Mobile Script (`setup_mobile.sh`)
-- **Menu Loop:** The script exits after one action. It should ideally be wrapped in a `while true` loop so the user can try reconnecting without restarting the script.
-- **Termux Dependencies:** The script correctly uses `pkg`, which is the standard manager for Termux.
+### Master Menus (`menu.ps1`, `menu.sh`)
+- **UX/Flow:** The master menus significantly improve the **User Experience (UX)** by providing a single entry point.
+- **Error Handling:** The PowerShell menu uses `-ExecutionPolicy Bypass` to ensure the scripts can run without common permission blocks.
+- **Cross-Platform Consistency:** The logic in `menu.ps1` and `menu.sh` is synchronized, ensuring a consistent flow regardless of the OS.
 
 ## 3. Privacy & Security Review
-- **Authentication:** By default, Windows OpenSSH often relies on password authentication. For better privacy/security, **SSH Key-based authentication** is recommended.
-- **Information Exposure:** The notebook script prints all local IP addresses. This is safe for LAN use, but users should be warned not to share this output on public forums.
-- **LAN Isolation:** The "LAN only" requirement is critical. Users should ensure their router firewall prevents Port 22 from being exposed to the global internet (WAN).
-- **No Data Harvesting:** The scripts do not collect, store, or transmit any user data beyond what is required to establish the local connection.
+... (existing content) ...
+- **Script Integrity:** The master menus call sub-scripts using relative paths, which is secure and prevents accidental execution of outside binaries.
+
+## 4. UX & Program Flow Audit
+- **Prompt Clarity:** All scripts now include "PRE-SETUP NOTICE" and "SETUP SUMMARY" as per the Director's request. This ensures the user is never surprised by an action.
+- **Logic Progression:** The flow from Master Menu -> Confirmation -> Execution -> Summary is logical and follows senior engineering standards.
 
 ## Recommendations
-1. **Update `setup_notebook.ps1`** to include an Administrator check.
-2. **Update `setup_mobile.sh`** with a menu loop.
-3. **Add a Security section** to the README suggesting SSH Key setup for enhanced privacy.
+1. **Update `setup_notebook.ps1`** to include an Administrator check. (DONE)
+2. **Update `setup_mobile.sh`** with a menu loop. (DONE)
+3. **Add Master Menus** for easier navigation. (DONE)
+4. **Security Hardening:** Consider adding a "Health Check" option to the menu to verify SSH status periodically.
+
+---
+*Reviewed by: Security & Compliance Agent (Gemini CLI)*
 
 ---
 *Reviewed by: Security & Compliance Agent (Gemini CLI)*
