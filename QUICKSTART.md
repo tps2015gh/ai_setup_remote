@@ -8,6 +8,13 @@ Get your LAN Remote CLI up and running in 3 minutes.
 
 ---
 
+## Step 0: Clone the Repository
+Open your terminal (PowerShell on Windows or Termux on Android) and run:
+```bash
+git clone https://github.com/tps2015gh/ai_setup_remote.git
+cd ai_setup_remote
+```
+
 ## Step 1: Notebook Setup (Windows)
 1. Open **PowerShell** as **Administrator**.
 2. Navigate to the project folder:

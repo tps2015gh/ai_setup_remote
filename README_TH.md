@@ -17,6 +17,13 @@
 - `windows_tmux/notebook/`: สคริปต์ตั้งค่าสำหรับเครื่อง Windows 11 (เครื่องแม่ข่าย)
 - `windows_tmux/mobile/`: สคริปต์ตั้งค่าสำหรับเครื่อง Android (Termux) (เครื่องลูกข่าย)
 
+## ขั้นตอนที่ 0: ดาวน์โหลดโปรเจกต์จาก GitHub (Clone)
+เปิด Terminal (PowerShell ใน Windows หรือ Termux ใน Android) และรันคำสั่ง:
+```bash
+git clone https://github.com/tps2015gh/ai_setup_remote.git
+cd ai_setup_remote
+```
+
 ## ขั้นตอนการติดตั้งอย่างรวดเร็ว
 
 ### 1. สำหรับโน้ตบุ๊ก (Windows 11 Home)
