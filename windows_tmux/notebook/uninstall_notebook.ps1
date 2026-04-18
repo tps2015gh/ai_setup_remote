@@ -74,6 +74,13 @@ if (Test-Path $sshBinDir) {
     }
 }
 
+# 5. Remove Home Shortcuts
+$geminiBat = Join-Path $HOME "gemini.bat"
+$gBat = Join-Path $HOME "g.bat"
+if (Test-Path $geminiBat) { Remove-Item $geminiBat -Force }
+if (Test-Path $gBat) { Remove-Item $gBat -Force }
+Write-Host "Removed direct shortcuts from $HOME" -ForegroundColor Yellow
+
 # Cleanup
 if (Test-Path $stateFile) {
     Remove-Item $stateFile

@@ -57,7 +57,11 @@ function Fix-GeminiSSH {
                 [Environment]::SetEnvironmentVariable("Path", $newPath, "User")
                 $env:Path = "$sshBinDir;$env:Path" # Update current session
             }
-            Write-Host "Created physical gemini.cmd shim in $sshBinDir" -ForegroundColor Green
+            # 3. Direct Home Shortcut (for absolute ease of use over SSH)
+            $homeShim = "@echo off`n`"$actualNode`" `"$($actualGeminiJs.FullName)`" %*"
+            $homeShim | Out-File -FilePath (Join-Path $HOME "gemini.bat") -Encoding ascii
+            $homeShim | Out-File -FilePath (Join-Path $HOME "g.bat") -Encoding ascii
+            Write-Host "Created direct shortcuts (gemini.bat, g.bat) in $HOME" -ForegroundColor Green
         }
     }
 }
