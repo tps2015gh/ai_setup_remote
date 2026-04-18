@@ -1,0 +1,1 @@
+in code for notebook you modify firewall rule ? update to save old status then  , have script to rollback firewall status . or uninistall script  (this will remove ssh service if when start not installed , but if already exist not have to uninstall ssh service )

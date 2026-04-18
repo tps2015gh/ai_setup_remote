@@ -9,6 +9,8 @@ if (-not $currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Adm
     Exit
 }
 
+$stateFile = Join-Path $PSScriptRoot ".setup_state.json"
+
 function Show-SystemInfo {
     Write-Host "--- SYSTEM INFORMATION ---" -ForegroundColor Cyan
     Write-Host "OS: $((Get-ComputerInfo).OsName)"
@@ -22,11 +24,28 @@ function Setup-SSHServer {
     Write-Host "Checking OpenSSH Server status..." -ForegroundColor Green
     
     # Check if OpenSSH.Server is installed
-    $sshServer = Get-WindowsCapability -Online | Where-Object Name -like 'OpenSSH.Server*'
+    $sshCapability = Get-WindowsCapability -Online | Where-Object Name -like 'OpenSSH.Server*'
+    $initiallyInstalled = ($sshCapability.State -eq 'Installed')
     
-    if ($sshServer.State -ne 'Installed') {
+    # Check if sshd service was running
+    $sshService = Get-Service -Name sshd -ErrorAction SilentlyContinue
+    $initiallyRunning = ($sshService -and $sshService.Status -eq 'Running')
+    
+    # Check firewall rule
+    $sshRule = Get-NetFirewallRule -Name "OpenSSH-Server-In-TCP" -ErrorAction SilentlyContinue
+    $initiallyRuleExists = ($null -ne $sshRule)
+
+    # Save initial state
+    $setupState = @{
+        SSHInitiallyInstalled = $initiallyInstalled
+        SSHInitiallyRunning   = $initiallyRunning
+        FirewallRuleInitiallyExists = $initiallyRuleExists
+    }
+    $setupState | ConvertTo-Json | Out-File $stateFile
+
+    if (-not $initiallyInstalled) {
         Write-Host "Installing OpenSSH Server..." -ForegroundColor Yellow
-        Add-WindowsCapability -Online -Name $sshServer.Name
+        Add-WindowsCapability -Online -Name $sshCapability.Name
     } else {
         Write-Host "OpenSSH Server is already installed." -ForegroundColor Green
     }
@@ -37,8 +56,7 @@ function Setup-SSHServer {
     Set-Service -Name sshd -StartupType 'Automatic'
 
     # Check firewall rule
-    $sshRule = Get-NetFirewallRule -Name "OpenSSH-Server-In-TCP" -ErrorAction SilentlyContinue
-    if (-not $sshRule) {
+    if (-not $initiallyRuleExists) {
         Write-Host "Creating Firewall rule for SSH (Port 22)..." -ForegroundColor Yellow
         New-NetFirewallRule -Name 'OpenSSH-Server-In-TCP' -DisplayName 'OpenSSH Server (sshd)' -Enabled True -Direction Inbound -Protocol TCP -LocalPort 22 -Action Allow
     } else {

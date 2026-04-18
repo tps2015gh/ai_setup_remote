@@ -20,6 +20,11 @@ Get your LAN Remote CLI up and running in 3 minutes.
    ```
 4. **Note the IP Address** displayed at the end (e.g., `192.168.1.15`).
 
+## Step 1.5: Rollback (Optional)
+If you wish to remove the SSH server and revert firewall changes:
+1. Run `.\uninstall_notebook.ps1` as Administrator.
+   - This will only remove components that were NOT present before the setup.
+
 ## Step 2: Mobile Setup (Android)
 1. Open **Termux**.
 2. Navigate to the project folder (or download the script):
