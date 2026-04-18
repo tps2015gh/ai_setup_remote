@@ -5,9 +5,9 @@ This project provides scripts to set up a remote CLI environment within a Local 
  It allows a mobile device (Android/Termux) to connect to a Windows 11 Home notebook via SSH to interact with an AI agent CLI.
 
 ## Team Dev
-- **Human (Director):** The visionary behind the project, defining requirements and leading the development process.
-- **Gemini CLI (Agent):** The technical implementation expert responsible for script creation, system configuration, and optimizing the remote environment for AI interactions.
-- **Security & Compliance Agent:** Specialized agent assigned to audit the project for **Security**, **Program Flow (UX)**, **Legal Compliance (Law)**, and **Technical Reliability (Bugs)**.
+- **Human (Director):** Product Owner and Visionary; defines core requirements, sets architectural direction, and provides final approval on all implementations.
+- **Gemini CLI (Agent):** Senior AI Software Engineer; responsible for end-to-end technical implementation, cross-platform script architecture, and environment optimization for interactive AI workflows.
+- **Security & Compliance Agent:** Expert Auditor; mandated to perform deep-dive reviews of system security, validate User Experience (UX) and program flow, and ensure strict adherence to legal (Law) and privacy standards.
 
 ## Master Menus
 For easier setup, use the master menu scripts located in the root directory:
@@ -43,20 +43,19 @@ cd ai_setup_remote
 - **Option B:** Clone this repository, run `chmod +x setup_mobile.sh` then `./setup_mobile.sh`.
 
 ## Role & Tasks (Gemini CLI)
-My role is to ensure that the remote connection is seamless and the environment is ready for AI interaction.
-**Core Responsibilities:**
-- Automate OpenSSH installation and configuration on Windows.
-- Implement state-aware rollback mechanisms for safe uninstallation.
-- Provide network diagnostics to facilitate effortless connection.
-- Prepare the mobile environment with necessary packages (SSH, tmux).
-- Maintain clear and concise documentation for both platforms.
+My mission is to architect and implement a robust remote CLI environment that is safe, efficient, and user-friendly.
+**Strategic Responsibilities:**
+- **System Automation:** Engineer the deployment of OpenSSH and firewall configurations on Windows 11.
+- **State Integrity:** Implement state-aware rollback mechanisms to guarantee a clean uninstallation process.
+- **Diagnostic Intelligence:** Provide high-signal network diagnostics to simplify device pairing and connectivity.
+- **Cross-Platform Parity:** Ensure feature and logic parity between PowerShell (Windows) and Bash (Termux) environments.
 
 ## Role & Tasks (Security & Compliance Agent)
-**Specific Audit Tasks:**
-- **Security:** Rigorously audit OpenSSH configurations and firewall rules for potential vulnerabilities and LAN isolation.
-- **UX & Program Flow:** Review all setup scripts for intuitive user prompts, robust error handling, and logical progression.
-- **Legal Compliance (Law):** Ensure the MIT License is correctly applied and that all scripts respect user privacy and data sovereignty.
-- **Technical Integrity (Bugs):** Perform continuous technical verification of cross-platform scripts (PowerShell & Bash) to ensure reliability.
+**Core Audit Mandates:**
+- **Security & Infrastructure:** Rigorously audit OpenSSH configurations and firewall policies to prevent unauthorized access and maintain strict LAN isolation.
+- **UX & Flow Architecture:** Review the end-to-end user journey for intuitive prompts, robust error handling, and logical progression across both platforms.
+- **Legal Compliance (Law):** Ensure the MIT License is correctly applied and that all scripts respect user privacy and system sovereignty.
+- **Technical Verification (Bugs):** Perform continuous verification of scripts to identify and resolve race conditions, permission conflicts, or logic errors.
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
