@@ -51,6 +51,16 @@ if ($setupState.SSHInitiallyInstalled -eq $false) {
     Write-Host "Keeping OpenSSH Server as it was previously installed." -ForegroundColor Green
 }
 
+# 4. Cleanup PowerShell Profile Alias
+if (Test-Path $PROFILE) {
+    $content = Get-Content $PROFILE
+    $newContent = $content | Where-Object { $_ -notlike "*function gemini*" -and $_ -notlike "*actualNode*" -and $_ -notlike "*actualGeminiJs*" }
+    if ($content.Count -ne $newContent.Count) {
+        Write-Host "Removing gemini alias from PowerShell profile..." -ForegroundColor Yellow
+        $newContent | Out-File $PROFILE -Encoding utf8
+    }
+}
+
 # Cleanup
 if (Test-Path $stateFile) {
     Remove-Item $stateFile

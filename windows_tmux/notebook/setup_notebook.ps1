@@ -20,6 +20,28 @@ function Show-SystemInfo {
     Write-Host "-------------------------" -ForegroundColor Cyan
 }
 
+function Fix-GeminiSSH {
+    Write-Host "Checking for Gemini CLI path for SSH compatibility..." -ForegroundColor Green
+    $geminiPath = where.exe gemini | Select-Object -First 1
+    if ($geminiPath -and (Get-Item $geminiPath).Length -eq 0) {
+        Write-Host "Detected Volta shim (App Execution Alias). Creating SSH-compatible alias..." -ForegroundColor Yellow
+        
+        $actualNode = where.exe node | Select-Object -First 1
+        $actualGeminiJs = Get-ChildItem -Path "$env:LOCALAPPDATA\Volta\tools\image\packages\@google\gemini-cli" -Filter "gemini.js" -Recurse | Where-Object { $_.FullName -like "*bundle\gemini.js" } | Select-Object -First 1
+        
+        if ($actualNode -and $actualGeminiJs) {
+            $profileDir = Split-Path $PROFILE
+            if (-not (Test-Path $profileDir)) { New-Item -Path $profileDir -ItemType Directory }
+            
+            $aliasCommand = "`nfunction gemini { & `"$actualNode`" `"$($actualGeminiJs.FullName)`" `$args }`n"
+            if (-not (Test-Path $PROFILE) -or (Get-Content $PROFILE | Select-String "function gemini") -eq $null) {
+                $aliasCommand | Out-File -FilePath $PROFILE -Append -Encoding utf8
+                Write-Host "Added gemini alias to PowerShell profile for SSH compatibility." -ForegroundColor Green
+            }
+        }
+    }
+}
+
 function Setup-SSHServer {
     Write-Host "Checking OpenSSH Server status..." -ForegroundColor Green
     
@@ -62,6 +84,9 @@ function Setup-SSHServer {
     } else {
         Write-Host "Firewall rule for SSH is already enabled." -ForegroundColor Green
     }
+
+    # Fix Gemini CLI for SSH
+    Fix-GeminiSSH
 }
 
 function Show-NetworkInfo {
