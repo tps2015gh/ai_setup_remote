@@ -1,0 +1,26 @@
+scenario : 
+LAN environment only not global . 
+(Notebook and PC is on LAN connection ) 
+
+1. Notebook OS windows 11 home  .
+i want to setup  remote cli  for this notebook  .   
+to wait connection ( so i can talk to ai agent cli for this server with in Powershell ) . 
+Most of time i not stay at this desk but power ON.  this may be ssh server or else. 
+
+
+2. Mobile this is mobile (android) 
+i think tmux can connect to this pc  with ssh or else .
+
+
+create script for both 1  and 2 
+( i will push this to GitHub repo , then this 2 machine can connect and fetch component 
+and then run that component to easily setup , add menu if nessary 
+. add code to show systeminfo to to check machine first before start ) 
+separate folder for 1 and 2 
+(all 1 and 2 is in folder "windows_tmux")
+
+
+ok add git init   ,  License MIT . 
+create README.MD that describe all . 
+at this file add Team Dev as Me (Human as director or else role ) , and you as Gemini Cli  show your role and task.
+
