@@ -75,9 +75,32 @@ function Show-NetworkInfo {
 }
 
 # Main Execution
+Write-Host "--- PRE-SETUP NOTICE ---" -ForegroundColor Cyan
+Write-Host "This script will perform the following actions:"
+Write-Host "1. Check for Administrator privileges."
+Write-Host "2. Install OpenSSH Server (if not present)."
+Write-Host "3. Start and set OpenSSH service to Automatic."
+Write-Host "4. Create a Windows Firewall rule for Port 22."
+Write-Host "5. Save the initial state for future rollback."
+
+$confirmation = Read-Host "Do you want to proceed? (Y/N)"
+if ($confirmation -ne "Y") {
+    Write-Host "Setup cancelled by user." -ForegroundColor Yellow
+    Exit
+}
+
 Show-SystemInfo
 Setup-SSHServer
 Show-NetworkInfo
+
+Write-Host "`n--- SETUP SUMMARY ---" -ForegroundColor Cyan
+Write-Host "Operation: OpenSSH Server Setup"
+Write-Host "Status: Complete"
+Write-Host "Actions Taken:"
+if ($setupState.SSHInitiallyInstalled -eq $false) { Write-Host "- Installed OpenSSH Server capability." }
+Write-Host "- Configured 'sshd' service to Start and Auto-start."
+if ($setupState.FirewallRuleInitiallyExists -eq $false) { Write-Host "- Created 'OpenSSH-Server-In-TCP' firewall rule." }
+Write-Host "- State saved to: $stateFile"
 
 Write-Host "`nSetup Complete! The server is now waiting for connection." -ForegroundColor Green
 Write-Host "To talk to Gemini CLI, make sure it is installed and added to PATH."

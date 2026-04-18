@@ -64,6 +64,28 @@ show_menu() {
 }
 
 # Main Execution
+echo -e "\e[36m--- PRE-SETUP NOTICE ---\e[0m"
+echo "This script will perform the following actions in Termux:"
+echo "1. Update package list."
+echo "2. Install OpenSSH client (for remote connection)."
+echo "3. Install tmux (for session management)."
+echo ""
+
+read -p "Do you want to proceed? (y/n): " confirm
+if [[ ! $confirm =~ ^[Yy]$ ]]; then
+    echo -e "\e[33mSetup cancelled by user.\e[0m"
+    exit 0
+fi
+
 show_system_info
 setup_packages
+
+echo -e "\e[36m--- SETUP SUMMARY ---\e[0m"
+echo "Operation: Mobile Termux Setup"
+echo "Status: Complete"
+echo "Actions Taken:"
+echo "- Updated package list."
+echo "- Verified/Installed OpenSSH client."
+echo "- Verified/Installed tmux."
+
 show_menu

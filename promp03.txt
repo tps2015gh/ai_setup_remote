@@ -1,0 +1,1 @@
+after setup each , prompt before run that which this program will do . then after do show brief what program do .
