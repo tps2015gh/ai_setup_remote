@@ -21,6 +21,17 @@ For easier setup, use the master menu scripts located in the root directory:
 
 ## Setup Instructions
 
+### 0. Clone the Repository (Step 0)
+Open your terminal (PowerShell on Windows or Termux on Android) and run:
+```bash
+git clone https://github.com/tps2015gh/ai_setup_remote.git
+cd ai_setup_remote
+```
+
+#### 0.1 Install Git (If not installed)
+- **Windows:** Download and install from [git-scm.com](https://git-scm.com/download/win) or run `winget install --id Git.Git -e --source winget` in PowerShell.
+- **Android (Termux):** Run `pkg install git -y`.
+
 ### 1. Notebook (Windows 11 Home)
 - Navigate to `windows_tmux/notebook/`.
 - Run `setup_notebook.ps1` with Administrator privileges in PowerShell.
