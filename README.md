@@ -6,8 +6,8 @@ This project provides scripts to set up a remote CLI environment within a Local 
 
 ## Team Dev
 - **Human (Director):** Product Owner and Visionary; defines core requirements, sets architectural direction, and provides final approval on all implementations.
-- **Gemini CLI (Agent):** Senior AI Software Engineer; responsible for end-to-end technical implementation, cross-platform script architecture, and environment optimization for interactive AI workflows.
-- **Security & Compliance Agent:** Expert Auditor; mandated to perform deep-dive reviews of system security, validate User Experience (UX) and program flow, and ensure strict adherence to legal (Law) and privacy standards.
+- **Gemini CLI (Agent):** Senior AI Software Engineer and **Interactive CLI Agent**; responsible for end-to-end technical implementation, cross-platform script architecture, and environment optimization for interactive AI workflows.
+- **Security & Compliance Agent:** Strategic Auditor; mandated to perform deep-dive reviews of system security, validate User Experience (UX) and program flow, and ensure strict adherence to legal (Law) and privacy standards.
 
 ## Master Menus
 For easier setup, use the master menu scripts located in the root directory:

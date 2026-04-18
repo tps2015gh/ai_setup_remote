@@ -16,11 +16,11 @@ if ($null -eq $sshService) {
 # 2. Check Firewall Rule
 $sshRule = Get-NetFirewallRule -Name "OpenSSH-Server-In-TCP" -ErrorAction SilentlyContinue
 if ($null -eq $sshRule) {
-    Write-Host "Firewall Rule: NOT FOUND" -ForegroundColor Red
+    Write-Host "Firewall Rule (Port 22): NOT FOUND (CLOSED)" -ForegroundColor Red
 } else {
-    $ruleStatus = if ($sshRule.Enabled -eq 'True') { "ENABLED" } else { "DISABLED" }
+    $ruleStatus = if ($sshRule.Enabled -eq 'True') { "ENABLED (OPEN)" } else { "DISABLED (CLOSED)" }
     $ruleColor = if ($sshRule.Enabled -eq 'True') { "Green" } else { "Yellow" }
-    Write-Host "Firewall Rule: $ruleStatus" -ForegroundColor $ruleColor
+    Write-Host "Firewall Rule (Port 22): $ruleStatus" -ForegroundColor $ruleColor
 }
 
 # 3. Network Info

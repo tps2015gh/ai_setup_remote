@@ -24,15 +24,15 @@ function Fix-GeminiSSH {
     Write-Host "Checking for Gemini CLI path for SSH compatibility..." -ForegroundColor Green
     $geminiPath = where.exe gemini | Select-Object -First 1
     
-    # Check if it's a Volta shim (0 bytes)
+    # Check if it's a Volta shim (0 bytes) or if we just want to ensure shims exist
     if ($geminiPath -and (Get-Item $geminiPath).Length -eq 0) {
-        Write-Host "Detected Volta shim (App Execution Alias). Creating SSH-compatible shim..." -ForegroundColor Yellow
+        Write-Host "Detected Volta shim (App Execution Alias). Setting up SSH-compatible environment..." -ForegroundColor Yellow
         
         $actualNode = where.exe node | Select-Object -First 1
         $actualGeminiJs = Get-ChildItem -Path "$env:LOCALAPPDATA\Volta\tools\image\packages\@google\gemini-cli" -Filter "gemini.js" -Recurse | Where-Object { $_.FullName -like "*bundle\gemini.js" } | Select-Object -First 1
         
         if ($actualNode -and $actualGeminiJs) {
-            # 1. PowerShell Profile Alias (for PowerShell sessions)
+            # 1. PowerShell Profile Alias (for local PowerShell sessions)
             $profileDir = Split-Path $PROFILE
             if (-not (Test-Path $profileDir)) { New-Item -Path $profileDir -ItemType Directory }
             
@@ -42,26 +42,8 @@ function Fix-GeminiSSH {
                 Write-Host "Added gemini function to PowerShell profile." -ForegroundColor Green
             }
 
-            # 2. Physical .cmd Shim (for CMD sessions and better PATH priority)
-            $sshBinDir = Join-Path $env:USERPROFILE ".ssh_bin"
-            if (-not (Test-Path $sshBinDir)) { New-Item -Path $sshBinDir -ItemType Directory }
-            
-            $cmdShim = "@echo off`n`"$actualNode`" `"$($actualGeminiJs.FullName)`" %*"
-            $cmdShim | Out-File -FilePath (Join-Path $sshBinDir "gemini.cmd") -Encoding ascii
-            
-            # Add to User PATH if not present (prepend to ensure priority)
-            $userPath = [Environment]::GetEnvironmentVariable("Path", "User")
-            if ($userPath -notlike "*$sshBinDir*") {
-                Write-Host "Adding $sshBinDir to User PATH..." -ForegroundColor Yellow
-                $newPath = "$sshBinDir;$userPath"
-                [Environment]::SetEnvironmentVariable("Path", $newPath, "User")
-                $env:Path = "$sshBinDir;$env:Path" # Update current session
-            }
-            # 3. Direct Home Shortcut (for absolute ease of use over SSH)
-            $homeShim = "@echo off`n`"$actualNode`" `"$($actualGeminiJs.FullName)`" %*"
-            $homeShim | Out-File -FilePath (Join-Path $HOME "gemini.bat") -Encoding ascii
-            $homeShim | Out-File -FilePath (Join-Path $HOME "g.bat") -Encoding ascii
-            Write-Host "Created direct shortcuts (gemini.bat, g.bat) in $HOME" -ForegroundColor Green
+            # 2. Run the dedicated Shim Creation script (creates .bat and .ps1 in HOME)
+            & (Join-Path $PSScriptRoot "create_shim.ps1")
         }
     }
 }
