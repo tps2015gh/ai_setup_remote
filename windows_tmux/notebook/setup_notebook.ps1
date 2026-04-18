@@ -23,21 +23,41 @@ function Show-SystemInfo {
 function Fix-GeminiSSH {
     Write-Host "Checking for Gemini CLI path for SSH compatibility..." -ForegroundColor Green
     $geminiPath = where.exe gemini | Select-Object -First 1
+    
+    # Check if it's a Volta shim (0 bytes)
     if ($geminiPath -and (Get-Item $geminiPath).Length -eq 0) {
-        Write-Host "Detected Volta shim (App Execution Alias). Creating SSH-compatible alias..." -ForegroundColor Yellow
+        Write-Host "Detected Volta shim (App Execution Alias). Creating SSH-compatible shim..." -ForegroundColor Yellow
         
         $actualNode = where.exe node | Select-Object -First 1
         $actualGeminiJs = Get-ChildItem -Path "$env:LOCALAPPDATA\Volta\tools\image\packages\@google\gemini-cli" -Filter "gemini.js" -Recurse | Where-Object { $_.FullName -like "*bundle\gemini.js" } | Select-Object -First 1
         
         if ($actualNode -and $actualGeminiJs) {
+            # 1. PowerShell Profile Alias (for PowerShell sessions)
             $profileDir = Split-Path $PROFILE
             if (-not (Test-Path $profileDir)) { New-Item -Path $profileDir -ItemType Directory }
             
             $aliasCommand = "`nfunction gemini { & `"$actualNode`" `"$($actualGeminiJs.FullName)`" `$args }`n"
             if (-not (Test-Path $PROFILE) -or (Get-Content $PROFILE | Select-String "function gemini") -eq $null) {
                 $aliasCommand | Out-File -FilePath $PROFILE -Append -Encoding utf8
-                Write-Host "Added gemini alias to PowerShell profile for SSH compatibility." -ForegroundColor Green
+                Write-Host "Added gemini function to PowerShell profile." -ForegroundColor Green
             }
+
+            # 2. Physical .cmd Shim (for CMD sessions and better PATH priority)
+            $sshBinDir = Join-Path $env:USERPROFILE ".ssh_bin"
+            if (-not (Test-Path $sshBinDir)) { New-Item -Path $sshBinDir -ItemType Directory }
+            
+            $cmdShim = "@echo off`n`"$actualNode`" `"$($actualGeminiJs.FullName)`" %*"
+            $cmdShim | Out-File -FilePath (Join-Path $sshBinDir "gemini.cmd") -Encoding ascii
+            
+            # Add to User PATH if not present (prepend to ensure priority)
+            $userPath = [Environment]::GetEnvironmentVariable("Path", "User")
+            if ($userPath -notlike "*$sshBinDir*") {
+                Write-Host "Adding $sshBinDir to User PATH..." -ForegroundColor Yellow
+                $newPath = "$sshBinDir;$userPath"
+                [Environment]::SetEnvironmentVariable("Path", $newPath, "User")
+                $env:Path = "$sshBinDir;$env:Path" # Update current session
+            }
+            Write-Host "Created physical gemini.cmd shim in $sshBinDir" -ForegroundColor Green
         }
     }
 }

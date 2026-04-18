@@ -51,13 +51,26 @@ if ($setupState.SSHInitiallyInstalled -eq $false) {
     Write-Host "Keeping OpenSSH Server as it was previously installed." -ForegroundColor Green
 }
 
-# 4. Cleanup PowerShell Profile Alias
+# 4. Cleanup PowerShell Profile Alias and SSH Bin
 if (Test-Path $PROFILE) {
     $content = Get-Content $PROFILE
     $newContent = $content | Where-Object { $_ -notlike "*function gemini*" -and $_ -notlike "*actualNode*" -and $_ -notlike "*actualGeminiJs*" }
     if ($content.Count -ne $newContent.Count) {
         Write-Host "Removing gemini alias from PowerShell profile..." -ForegroundColor Yellow
         $newContent | Out-File $PROFILE -Encoding utf8
+    }
+}
+
+$sshBinDir = Join-Path $env:USERPROFILE ".ssh_bin"
+if (Test-Path $sshBinDir) {
+    Write-Host "Removing physical SSH bin directory ($sshBinDir)..." -ForegroundColor Yellow
+    Remove-Item -Path $sshBinDir -Recurse -Force
+    
+    $userPath = [Environment]::GetEnvironmentVariable("Path", "User")
+    if ($userPath -like "*$sshBinDir*") {
+        Write-Host "Removing $sshBinDir from User PATH..." -ForegroundColor Yellow
+        $newPath = $userPath.Replace("$sshBinDir;", "").Replace(";$sshBinDir", "").Replace($sshBinDir, "")
+        [Environment]::SetEnvironmentVariable("Path", $newPath, "User")
     }
 }
 
