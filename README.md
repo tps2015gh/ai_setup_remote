@@ -47,8 +47,9 @@ My mission is to architect and implement a robust remote CLI environment that is
 **Strategic Responsibilities:**
 - **System Automation:** Engineer the deployment of OpenSSH and firewall configurations on Windows 11.
 - **State Integrity:** Implement state-aware rollback mechanisms to guarantee a clean uninstallation process.
-- **Diagnostic Intelligence:** Provide high-signal network diagnostics to simplify device pairing and connectivity.
+- **Diagnostic Intelligence:** Provide high-signal network diagnostics, including a **Native Bash LAN Scanner** for rapid device discovery.
 - **Cross-Platform Parity:** Ensure feature and logic parity between PowerShell (Windows) and Bash (Termux) environments.
+- **SSH Compatibility:** Implement specific fixes for Volta-based CLI installations to ensure they execute correctly over SSH.
 
 ## Role & Tasks (Security & Compliance Agent)
 **Core Audit Mandates:**
@@ -56,6 +57,7 @@ My mission is to architect and implement a robust remote CLI environment that is
 - **UX & Flow Architecture:** Review the end-to-end user journey for intuitive prompts, robust error handling, and logical progression across both platforms.
 - **Legal Compliance (Law):** Ensure the MIT License is correctly applied and that all scripts respect user privacy and system sovereignty.
 - **Technical Verification (Bugs):** Perform continuous verification of scripts to identify and resolve race conditions, permission conflicts, or logic errors.
+- **Audit Reports:** Maintain the **AGENT_REVIEW.md** with the latest security and technical findings.
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
