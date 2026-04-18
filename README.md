@@ -1,6 +1,8 @@
 # LAN Remote CLI (Windows & Mobile)
+[อ่านภาษาไทยที่นี่ (Thai Version)](README_TH.md)
 
-This project provides scripts to set up a remote CLI environment within a Local Area Network (LAN). It allows a mobile device (Android/Termux) to connect to a Windows 11 Home notebook via SSH to interact with an AI agent CLI.
+This project provides scripts to set up a remote CLI environment within a Local Area Network (LAN).
+ It allows a mobile device (Android/Termux) to connect to a Windows 11 Home notebook via SSH to interact with an AI agent CLI.
 
 ## Team Dev
 - **Human (Director):** The visionary behind the project, defining requirements and leading the development process.
