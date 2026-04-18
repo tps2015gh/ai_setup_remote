@@ -1,6 +1,14 @@
 # setup_notebook.ps1
 # Setup OpenSSH Server for Remote CLI Access (LAN ONLY)
 
+# Check for Administrator privileges
+$currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
+if (-not $currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+    Write-Host "ERROR: This script must be run as Administrator." -ForegroundColor Red
+    Write-Host "Please right-click PowerShell and select 'Run as administrator'." -ForegroundColor Yellow
+    Exit
+}
+
 function Show-SystemInfo {
     Write-Host "--- SYSTEM INFORMATION ---" -ForegroundColor Cyan
     Write-Host "OS: $((Get-ComputerInfo).OsName)"

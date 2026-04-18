@@ -34,32 +34,33 @@ setup_packages() {
 }
 
 show_menu() {
-    echo ""
-    echo -e "\e[32mRemote CLI Setup Menu\e[0m"
-    echo "1. Connect to Notebook (SSH)"
-    echo "2. Start tmux Session"
-    echo "3. Exit"
-    read -p "Choose an option [1-3]: " choice
-    
-    case $choice in
-        1)
-            read -p "Enter Windows IP: " win_ip
-            read -p "Enter Windows Username: " win_user
-            echo "Connecting to $win_user@$win_ip..."
-            ssh "$win_user@$win_ip"
-            ;;
-        2)
-            echo "Starting tmux..."
-            tmux
-            ;;
-        3)
-            exit 0
-            ;;
-        *)
-            echo "Invalid choice."
-            show_menu
-            ;;
-    esac
+    while true; do
+        echo ""
+        echo -e "\e[32mRemote CLI Setup Menu\e[0m"
+        echo "1. Connect to Notebook (SSH)"
+        echo "2. Start tmux Session"
+        echo "3. Exit"
+        read -p "Choose an option [1-3]: " choice
+        
+        case $choice in
+            1)
+                read -p "Enter Windows IP: " win_ip
+                read -p "Enter Windows Username: " win_user
+                echo "Connecting to $win_user@$win_ip..."
+                ssh "$win_user@$win_ip"
+                ;;
+            2)
+                echo "Starting tmux..."
+                tmux
+                ;;
+            3)
+                exit 0
+                ;;
+            *)
+                echo "Invalid choice."
+                ;;
+        esac
+    done
 }
 
 # Main Execution

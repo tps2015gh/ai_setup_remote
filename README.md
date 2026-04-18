@@ -5,6 +5,7 @@ This project provides scripts to set up a remote CLI environment within a Local 
 ## Team Dev
 - **Human (Director):** The visionary behind the project, defining requirements and leading the development process.
 - **Gemini CLI (Agent):** The technical expert responsible for implementation, script creation, and system configuration.
+- **Security & Compliance Agent:** Responsible for auditing code for bugs, legal compliance (licensing/privacy), and security best practices.
 
 ## Project Structure
 - `windows_tmux/notebook/`: Contains the setup script for the Windows 11 host.
