@@ -27,8 +27,8 @@ do {
         }
         '3' {
             Write-Host "`n--- Mobile Setup (Android/Termux) ---" -ForegroundColor Cyan
-            Write-Host "Copy and paste this in Termux:"
-            Write-Host "pkg install git -y && git clone https://github.com/tps2015gh/ai_setup_remote.git && cd ai_setup_remote/windows_tmux/mobile && chmod +x setup_mobile.sh && ./setup_mobile.sh" -ForegroundColor Yellow
+            Write-Host "Copy and paste this command directly into Termux (No clone needed):"
+            Write-Host "pkg install curl -y && curl -LO https://raw.githubusercontent.com/tps2015gh/ai_setup_remote/master/windows_tmux/mobile/setup_mobile.sh && chmod +x setup_mobile.sh && ./setup_mobile.sh" -ForegroundColor Yellow
             Read-Host "`nPress Enter to return to menu..."
         }
         '4' {

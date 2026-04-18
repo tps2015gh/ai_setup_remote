@@ -34,11 +34,17 @@ If you wish to remove the SSH server and revert firewall changes:
 
 ## Step 2: Mobile Setup (Android)
 1. Open **Termux**.
-2. Navigate to the project folder (or download the script):
+2. **Option A (One-liner - No Clone Needed):**
+   Copy and paste this command:
+   ```bash
+   pkg install curl -y && curl -LO https://raw.githubusercontent.com/tps2015gh/ai_setup_remote/master/windows_tmux/mobile/setup_mobile.sh && chmod +x setup_mobile.sh && ./setup_mobile.sh
+   ```
+3. **Option B (Manual):**
+   Navigate to the project folder:
    ```bash
    cd windows_tmux/mobile/
    ```
-3. Run the setup script:
+   Run the setup script:
    ```bash
    chmod +x setup_mobile.sh
    ./setup_mobile.sh

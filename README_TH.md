@@ -33,10 +33,13 @@ cd ai_setup_remote
 - **จดจำหมายเลข IP Address** ที่แสดงตอนท้ายสคริปต์
 
 ### 2. สำหรับมือถือ (Android / Termux)
-- เปิดแอป Termux
-- ไปยังโฟลเดอร์โปรเจกต์แล้วรัน `./menu.sh`
-- เลือกข้อ 1 เพื่อเชื่อมต่อกับโน้ตบุ๊ก
-- กรอก IP Address และ Username ของ Windows เพื่อเริ่มต้นใช้งาน
+- **วิธีที่ 1 (ก๊อปปี้ไปวาง - ไม่ต้องโหลดโปรเจกต์):**
+  ก๊อปปี้คำสั่งนี้ไปวางใน Termux:
+  ```bash
+  pkg install curl -y && curl -LO https://raw.githubusercontent.com/tps2015gh/ai_setup_remote/master/windows_tmux/mobile/setup_mobile.sh && chmod +x setup_mobile.sh && ./setup_mobile.sh
+  ```
+- **วิธีที่ 2 (แบบปกติ):**
+  ไปที่โฟลเดอร์โปรเจกต์แล้วรัน `./menu.sh` หรือ `./setup_mobile.sh`
 
 ## การตรวจสอบความปลอดภัยและข้อกฎหมาย
 สามารถอ่านรายละเอียดการตรวจสอบระบบทั้งหมดได้ที่ [AGENT_REVIEW.md](AGENT_REVIEW.md) (ภาษาอังกฤษ) เพื่อดูการวิเคราะห์ด้านความเป็นส่วนตัวและจุดบกพร่องที่ได้รับการแก้ไขแล้ว
